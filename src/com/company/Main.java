@@ -20,9 +20,11 @@ public class Main {
         ArrayList<GameResult> leaders = new ArrayList<>(); //" ящик для лидеров, т.е. тех, кто победил и количество его попыток"
         boolean answer;
 
+
         do {
             System.out.println("What is your name?");
             String name = scan.next();
+            long t1 = System.currentTimeMillis();
             System.out.println("Hello, " + name);
 
             int myNum = rand.nextInt(100) + 1;
@@ -32,9 +34,11 @@ public class Main {
                 int userNum = askGuess();// локальная переменная
 
                 if (userNum == myNum) {
+                    long t2 = System.currentTimeMillis();
                     GameResult r = new GameResult();
                     r.name = name;
                     r.triesCount = i + 1;
+                    r.gameTime = t2 -  t1;
                     leaders.add(r); //отправляет данные в "ящик"( кладем тот обьект который находился в переменной r.)
                     System.out.println("You WIN! Congratulations!");
                     break;
@@ -52,7 +56,7 @@ public class Main {
             }
         } while (askAnotherGame()); // убрали лишнюю переменную методом boolean (см. пред. код!)
         for (GameResult r : leaders) {
-            System.out.printf("user:%s tries:%d %n" , r.name, r.triesCount);
+            System.out.printf("user:%s tries:%d time:%f %n" , r.name, r.triesCount, r.gameTime/1000.0);
         }
         System.out.println("Good bye!");
     }
