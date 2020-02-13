@@ -1,18 +1,24 @@
 package com.company;
 
 
+import org.w3c.dom.ls.LSOutput;
+
 import java.nio.channels.ScatteringByteChannel;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
+
 public class Main {
     static Scanner scan = new Scanner(System.in); // глобальный скан
+
 
     public static void main(String[] args) {
 
         Random rand = new Random(); // локальная переменная
-        String answer;
+        ArrayList<GameResult> leaders = new ArrayList<>(); //" ящик для лидеров, т.е. тех, кто победил и количество его попыток"
+        boolean answer;
 
         do {
             System.out.println("What is your name?");
@@ -25,20 +31,46 @@ public class Main {
             for (int i = 0; i < 10; i++) {
                 int userNum = askGuess();// локальная переменная
 
-
-                if (myNum < userNum) {
-                    System.out.println("My num is less then yours!");
-                } else if (myNum > userNum) {
-                    System.out.println("My num is greater then yours!");
-                } else {
-                    System.out.println("You WIN!");
+                if (userNum == myNum) {
+                    GameResult r = new GameResult();
+                    r.name = name;
+                    r.triesCount = i + 1;
+                    leaders.add(r); //отправляет данные в "ящик"( кладем тот обьект который находился в переменной r.)
+                    System.out.println("You WIN! Congratulations!");
                     break;
                 }
+                if (i == 9) {
+                    System.out.println("You lost!");
+                    break;
+
+                }
+                if (myNum < userNum) {
+                    System.out.println("My num is less then yours!");
+                } else {
+                    System.out.println("My num is greater then yours!");
+                }
             }
-            System.out.println("DO you want play?");
-            answer = scan.next();
-        } while (answer.equals("yes"));
+        } while (askAnotherGame()); // убрали лишнюю переменную методом boolean (см. пред. код!)
+        for (GameResult r : leaders) {
+            System.out.printf("user:%s tries:%d %n" , r.name, r.triesCount);
+        }
+        System.out.println("Good bye!");
     }
+
+    static boolean askAnotherGame() {
+        for (; ; ) {
+            System.out.println("Do you want play again? y/n");
+            String answer = scan.next();
+            if (answer.equalsIgnoreCase("y")) {
+                return true;
+            } else if (answer.equalsIgnoreCase("n")) {
+                return false;
+            } else {
+                System.out.println("You have to enter 'y' or 'n'");
+            }
+        }
+    }
+
 
     static int askGuess() {
         for (; ; ) {
@@ -57,3 +89,5 @@ public class Main {
         }
     }
 }
+
+
