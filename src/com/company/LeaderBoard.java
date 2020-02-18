@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Scanner;
 
 public class LeaderBoard {
     private ArrayList<GameResult> leaders = new ArrayList<>(); //" ящик для лидеров, т.е. тех, кто победил и количество его попыток"
@@ -51,13 +52,30 @@ public class LeaderBoard {
     }
 
    public void load() {
+        File tablo = new File ("tablo.txt");
+        try (Scanner in = new Scanner(tablo)) {
+            while (in.hasNext()) {
+                String name = in.next();
+                int num = in.nextInt();
+                long time = in.nextLong();
 
+                GameResult r = new GameResult();
+                r.setName(name);
+                r.setTriesCount(num);
+                r.setGameTime(time);
+
+              //  leaders.add(r); сохранить нашу переменную -r- (первый вапиант)
+                addLeader(r);
+            }
+        } catch (IOException e) {
+
+        }
     }
     public void save () {
         File tablo = new File("tablo.txt");
         try (PrintWriter out = new PrintWriter(tablo)) {
             for (GameResult r : leaders) {
-                System.out.printf("%s %d %d %n", r.getName(), r.getTriesCount(), r.getGameTime() / 1000.0);
+                out.printf("%s %d %d %n", r.getName(), r.getTriesCount(), r.getGameTime());
             }
         } catch (IOException e) {
         }
