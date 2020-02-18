@@ -1,13 +1,13 @@
 package com.company;
 
 
-import java.util.ArrayList;
 import java.util.Random;
 
 public class Main {
 static LeaderBoard leaderBoard = new LeaderBoard();
 
     public static void main(String[] args) {
+        leaderBoard.load();
         Random rand = new Random(); // локальная переменная
         boolean answer;
 
@@ -24,9 +24,9 @@ static LeaderBoard leaderBoard = new LeaderBoard();
                 if (userNum == myNum) {
                     long t2 = System.currentTimeMillis();
                     GameResult r = new GameResult();
-                    r.name = name;
-                    r.triesCount = i + 1;
-                    r.gameTime = t2 - t1;
+                    r.setName(name);
+                    r.setTriesCount(i + 1);
+                    r.setGameTime(t2 - t1);
                     leaderBoard.addLeader(r); //отправляет данные в "ящик"( кладем тот обьект который находился в переменной r.)
                     System.out.println("You WIN! Congratulations!");
                     break;
@@ -47,7 +47,7 @@ static LeaderBoard leaderBoard = new LeaderBoard();
 //        }
 
         leaderBoard.printResults();
-
+        leaderBoard.save();
         System.out.println("Good bye!");
     }
 
