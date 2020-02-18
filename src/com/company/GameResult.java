@@ -1,6 +1,6 @@
 package com.company;
 
-public class GameResult {
+public class GameResult { //Домашка: как начать запись когда началась игра (с каких миллисекунд. нигде не выводиться, только запись в файл).Время  должно запоминаться в табло каждого участника
     private String name;
     private int triesCount;
     private long gameTime;
