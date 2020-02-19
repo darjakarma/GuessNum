@@ -4,10 +4,9 @@ public class GameResult { //Домашка: как начать запись к�
     private String name;
     private int triesCount;
     private long gameTime;
+    // private long startTime;
 
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name; }
 
     public void setName(String name) {
         this.name = name;
@@ -21,11 +20,14 @@ public class GameResult { //Домашка: как начать запись к�
         this.triesCount = triesCount;
     }
 
-    public long getGameTime() {
-        return gameTime;
-    }
+    public long getGameTime() { return gameTime; }
+    public void setGameTime(long gameTime) { this.gameTime = gameTime; }
 
-    public void setGameTime(long gameTime) {
-        this.gameTime = gameTime;
-    }
+    //public long getStartTime() {  ???????????
+     //   return startTime;
+   // }
+
+    //public void setStartTime(long startTime) {  ?????????????
+     //   this.startTime = startTime;
+   // }
 }

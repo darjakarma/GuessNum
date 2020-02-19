@@ -27,7 +27,8 @@ static LeaderBoard leaderBoard = new LeaderBoard();
                     r.setName(name);
                     r.setTriesCount(i + 1);
                     r.setGameTime(t2 - t1);
-                    leaderBoard.addLeader(r); //отправляет данные в "ящик"( кладем тот обьект который находился в переменной r.)
+                    //r.setStartTime (t1);
+                    leaderBoard.addLeader(r);    //отправляет данные в "ящик"( кладем тот обьект который находился в переменной r.)
                     System.out.println("You WIN! Congratulations!");
                     break;
                 }

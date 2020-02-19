@@ -5,3 +5,6 @@ Dasha 9 13830
 Violetta 2 3312 
 Eugene 4 6990 
 Zlata 3 4868 
+Vitaly 10 15214 
+Zlata 3 7734 
+Dasha 10 17575 

@@ -58,11 +58,13 @@ public class LeaderBoard {
                 String name = in.next();
                 int num = in.nextInt();
                 long time = in.nextLong();
+                // long t1 = in.nextLong(); ???????????
 
                 GameResult r = new GameResult();
                 r.setName(name);
                 r.setTriesCount(num);
                 r.setGameTime(time);
+                // r.setStartTime(t1); 19/02/2020   ????????????????
 
               //  leaders.add(r); сохранить нашу переменную -r- (первый вапиант)
                 addLeader(r);
@@ -75,7 +77,7 @@ public class LeaderBoard {
         File tablo = new File("tablo.txt");
         try (PrintWriter out = new PrintWriter(tablo)) {
             for (GameResult r : leaders) {
-                out.printf("%s %d %d %n", r.getName(), r.getTriesCount(), r.getGameTime());
+                out.printf("%d %s %d %d %n", r.getName(), r.getTriesCount(), r.getGameTime());//r.getStartTime(),
             }
         } catch (IOException e) {
         }
