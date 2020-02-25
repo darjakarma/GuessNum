@@ -24,9 +24,10 @@ static LeaderBoard leaderBoard = new LeaderBoard();
                 if (userNum == myNum) {
                     long t2 = System.currentTimeMillis();
                     GameResult r = new GameResult();
+                    r.setStartTime (t1);
                     r.setName(name);
                     r.setTriesCount(i + 1);
-                    r.setGameTime(t2 - t1);
+                    r.setTime(t2 - t1);
                     //r.setStartTime (t1); ??????????
                     leaderBoard.addLeader(r);    //отправляет данные в "ящик"( кладем тот обьект который находился в переменной r.)
                     System.out.println("You WIN! Congratulations!");

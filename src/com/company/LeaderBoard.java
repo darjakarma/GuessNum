@@ -8,6 +8,7 @@ import java.util.Comparator;
 import java.util.Scanner;
 
 public class LeaderBoard {
+    public static final File FILE = new File("tablo.txt");
     private ArrayList<GameResult> leaders = new ArrayList<>(); //" ящик для лидеров, т.е. тех, кто победил и количество его попыток"
 
     public void addLeader(GameResult gr) {
@@ -43,43 +44,45 @@ public class LeaderBoard {
 
         leaders.stream()
         .sorted(Comparator.comparing(GameResult::getTriesCount)
-                .thenComparing(GameResult::getGameTime))
+                .thenComparing(GameResult::getTime))
                 .limit(5)
-                .forEach(r -> System.out.printf("%-" + maxLen + "s %2d %3.2f%n", r.getName(), r.getTriesCount(), r.getGameTime() / 1000.0));
+                .forEach(r -> System.out.printf("%-" + maxLen + "s %2d %3.2f%n", r.getName(), r.getTriesCount(), r.getTime() / 1000.0));
                 //   меняет порядок элементов списка
         //                               // .thenComparing(GameResult::getGameTime));
 
     }
 
    public void load() {
-        File tablo = new File ("tablo.txt");
-        try (Scanner in = new Scanner(tablo)) {
+        File file = new File ("tablo.txt"); //свалится джава, ибо нет longa  1 колонке
+            try (Scanner in = new Scanner(FILE)) {
             while (in.hasNext()) {
+                long startTime = in.nextLong();
                 String name = in.next();
-                int num = in.nextInt();
+                int triesCount = in.nextInt();
                 long time = in.nextLong();
                 // long t1 = in.nextLong(); ???????????
 
                 GameResult r = new GameResult();
+                r.setStartTime(startTime);
                 r.setName(name);
-                r.setTriesCount(num);
-                r.setGameTime(time);
-                // r.setStartTime(t1); 19/02/2020   ????????????????
+                r.setTriesCount(triesCount);
+                r.setTime(time);
+                //r.setStartTime(t1); //19/02/2020   ????????????????
 
               //  leaders.add(r); сохранить нашу переменную -r- (первый вапиант)
                 addLeader(r);
             }
         } catch (IOException e) {
-
+                System.out.println("Cannot load leaderboard. Creating new.");
         }
     }
     public void save () {
-        File tablo = new File("tablo.txt");
-        try (PrintWriter out = new PrintWriter(tablo)) {
+        File file = new File("tablo.txt");
+            try (PrintWriter out = new PrintWriter(FILE)) {
             for (GameResult r : leaders) {
-                out.printf("%d %s %d %d %n", r.getName(), r.getTriesCount(), r.getGameTime());//r.getStartTime(),
-            }
+                out.printf("%d %s %d %d%n", r.getStartTime(), r.getName(), r.getTriesCount(), r.getTime());            }
         } catch (IOException e) {
+                System.out.println("Cannot save leaderboard. Your results may be lost.");
         }
     }
 }
